@@ -28,7 +28,7 @@
         </div>
         <div class="col-4">
           <%= if @current_user do %>
-            User: @current_user.name
+            User: <%= @current_user.name %>
             (<%= link("Logout", to: Routes.session_path(@conn, :delete),
               method: :delete) %>)
           <% else %>
