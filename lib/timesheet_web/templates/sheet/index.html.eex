@@ -11,10 +11,14 @@
     </tr>
   </thead>
   <tbody>
-<%= for st <- @sheets do %>
-    <%= render TimesheetWeb.SheetView, "sheet_row.html", Map.put(assigns, :sheet, st) %>
-<% end %>
+    <%= for st <- @sheets do %>
+        <%= render TimesheetWeb.SheetView, "sheet_row.html", Map.put(assigns, :sheet, st) %>
+    <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Sheet", to: Routes.sheet_path(@conn, :new) %></span>
+<%= if @current_user.manager_id do %>
+  <span><%= link "New Sheet", to: Routes.sheet_path(@conn, :new) %></span>
+<% end %>
+
+
