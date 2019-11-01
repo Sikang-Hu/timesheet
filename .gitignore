@@ -35,4 +35,4 @@ npm-debug.log
 
 prod-env.sh
 
-
+.DS_Store

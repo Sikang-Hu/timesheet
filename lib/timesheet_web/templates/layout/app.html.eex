@@ -13,7 +13,7 @@
         <div class="col-4">
           <a class="navbar-brand" href="#">Timesheet</a>
         </div>
-        <div class="col-8">
+        <div class="col-4">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="#">All Timesheets</a>
@@ -22,6 +22,15 @@
               <a class="nav-link" href="#">You Timesheets</a>
             </li>
           </ul>
+        </div>
+        <div class="col-4 text-light">
+          <%= if @current_user do %>
+            User: <%= @current_user.name %>
+            (<%= link("Logout", to: Routes.session_path(@conn, :delete),
+              method: :delete) %>)
+          <% else %>
+            <%= link("Login", to: Routes.session_path(@conn, :new)) %>
+          <% end %>
         </div>
       </nav>
 
