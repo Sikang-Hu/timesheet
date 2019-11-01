@@ -4,7 +4,6 @@ defmodule Timesheet.Users.User do
 
   schema "users" do
     field :email, :string
-    field :manager_id, :integer, default: -1
     field :name, :string
     field :password_hash, :string
 
