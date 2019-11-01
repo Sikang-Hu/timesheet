@@ -7,7 +7,7 @@
     <span><%= link "Show", to: Routes.sheet_path(@conn, :show, @sheet) %></span>
     <%= if !(@current_user.manager_id || @sheet.approve) do %>
   <span>
-    <%= button("Approve", to: Routes.sheet_path(@conn, :approve, @sheet), class: "btn btn-primary") %>
+    <%= button("Approve", to: Routes.sheet_path(@conn, :approve, @sheet.id), class: "btn btn-primary") %>
     </span>
 <% end %>
   </td>
