@@ -5,7 +5,9 @@ defmodule Timesheet.Sheets.Sheet do
   schema "sheets" do
     field :approve, :boolean, default: false
     field :date, :date
-    field :worker_id, :integer
+
+    belongs_to :worker, Timesheet.Users.User
+    has_many :tasks, Timesheet.Tasks.Task, foreign_key: :task_id
 
     timestamps()
   end

@@ -5,8 +5,9 @@ defmodule Timesheet.Tasks.Task do
   schema "tasks" do
     field :note, :string
     field :spend_hours, :integer
-    field :job_id, :id
-    field :sheet_id, :id
+
+    belongs_to :sheet, Timesheet.Sheets.Sheet
+    belongs_to :job, Timesheet.Jobs.Job
 
     timestamps()
   end
