@@ -23,7 +23,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-4 text-light">
+        <div class="col-4">
           <%= if @current_user do %>
             User: <%= @current_user.name %>
             (<%= link("Logout", to: Routes.session_path(@conn, :delete),
