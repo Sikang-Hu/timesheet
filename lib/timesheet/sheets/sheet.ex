@@ -7,7 +7,7 @@ defmodule Timesheet.Sheets.Sheet do
     field :date, :date
 
     belongs_to :worker, Timesheet.Users.User
-    has_many :tasks, Timesheet.Tasks.Task, foreign_key: :task_id
+    has_many :tasks, Timesheet.Tasks.Task
 
     timestamps()
   end
