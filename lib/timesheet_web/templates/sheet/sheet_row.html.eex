@@ -1,0 +1,11 @@
+<tr>
+  <td><%= sheet.date %></td>
+  <td><%= sheet.approve %></td>
+  <td><%= sheet.worker_id %></td>
+
+  <td>
+    <span><%= link "Show", to: Routes.sheet_path(@conn, :show, sheet) %></span>
+    <span><%= link "Edit", to: Routes.sheet_path(@conn, :edit, sheet) %></span>
+    <span><%= link "Delete", to: Routes.sheet_path(@conn, :delete, sheet), method: :delete, data: [confirm: "Are you sure?"] %></span>
+  </td>
+</tr>
