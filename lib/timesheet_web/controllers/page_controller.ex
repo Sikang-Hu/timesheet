@@ -5,7 +5,7 @@ defmodule TimesheetWeb.PageController do
   	user = conn.assigns[:current_user]
 
   	if user do
-  		redirect(to: Routes.sheet_path(conn, :index))
+  		redirect(conn, to: Routes.sheet_path(conn, :index))
   	else 
   		render(conn, "index.html")
   	end
