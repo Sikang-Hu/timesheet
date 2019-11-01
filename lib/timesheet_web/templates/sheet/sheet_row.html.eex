@@ -5,8 +5,7 @@
 
   <td>
     <span><%= link "Show", to: Routes.sheet_path(@conn, :show, @sheet) %></span>
-    <span><%= link "Edit", to: Routes.sheet_path(@conn, :edit, @sheet) %></span>
-    <%= if @current_user.manager_id && !@sheet.approve do %>
+    <%= if !(@current_user.manager_id || @sheet.approve) do %>
   <span><%= link "Approve", to: Routes.sheet_path(@conn, :new) %></span>
 <% end %>
   </td>
