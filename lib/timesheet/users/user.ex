@@ -4,8 +4,15 @@ defmodule Timesheet.Users.User do
 
   schema "users" do
     field :email, :string
-    field :manager, :boolean, default: false
+    field :manager, :integer, default: -1
     field :name, :string
+    field :password_hash, :string
+
+    belongs_to :manager, Timesheet.Users.User
+    has_many :workers, Timesheet.Users.User, foreign_key: :manager_id
+
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
 
     timestamps()
   end

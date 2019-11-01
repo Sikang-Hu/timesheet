@@ -5,7 +5,7 @@ defmodule Timesheet.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :email, :string
       add :name, :string
-      add :manager, :boolean, default: false, null: false
+      add :manager_id, :integer, default: -1
 
       timestamps()
     end

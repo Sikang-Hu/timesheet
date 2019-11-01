@@ -5,8 +5,8 @@ defmodule TimesheetWeb.SessionController do
     render(conn, "new.html")
   end
 
-  def create(conn, %{"email" => email}) do
-    user = Timesheet.Users.get_user_by_email(email)
+  def create(conn, %{"email" => email, "password" => password}) do
+    user = Timesheet.Users.authenticate(email, password)
     if user do
       conn
       |> put_session(:user_id, user.id)
