@@ -51,6 +51,24 @@ defmodule TimesheetWeb.SheetController do
     end
   end
 
+  def approve(conn, %{"id" => id}) do
+    user = conn.assigns[:current_user]
+    if user.manager_id do
+      sheet = Sheets.get_sheet!(id)
+      case Sheets.update_sheet(sheet, %{approve: true}}) do
+        {:ok, sheet} ->
+          conn
+          |> put_flash(:info, "Approved successfully.")
+          |> redirect(to: Routes.sheet_path(conn, :index))
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          conn
+          |> put_flash(:error, "Approve failed!")
+          |> redirect(to: Routes.sheet_path(conn, :index))
+      end
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
     sheet = Sheets.get_sheet!(id)
     {:ok, _sheet} = Sheets.delete_sheet(sheet)
