@@ -55,7 +55,7 @@ defmodule TimesheetWeb.SheetController do
     user = conn.assigns[:current_user]
     if user.manager_id do
       sheet = Sheets.get_sheet!(id)
-      case Sheets.update_sheet(sheet, %{approve: true}}) do
+      case Sheets.update_sheet(sheet, %{approve: true}) do
         {:ok, sheet} ->
           conn
           |> put_flash(:info, "Approved successfully.")
