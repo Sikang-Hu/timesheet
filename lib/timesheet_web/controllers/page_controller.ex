@@ -4,7 +4,7 @@ defmodule TimesheetWeb.PageController do
   def index(conn, _params) do
   	user = conn.assigns[:current_user]
 
-  	if current_user do
+  	if user do
   		render(conn, "../sheet/index.html")
   	else 
   		render(conn, "index.html")
