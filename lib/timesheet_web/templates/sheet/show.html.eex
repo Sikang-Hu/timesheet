@@ -1,0 +1,23 @@
+<h1>Show Sheet</h1>
+
+<ul>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @sheet.date %>
+  </li>
+
+  <li>
+    <strong>Approve:</strong>
+    <%= @sheet.approve %>
+  </li>
+
+  <li>
+    <strong>Worker:</strong>
+    <%= @sheet.worker_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.sheet_path(@conn, :edit, @sheet) %></span>
+<span><%= link "Back", to: Routes.sheet_path(@conn, :index) %></span>
