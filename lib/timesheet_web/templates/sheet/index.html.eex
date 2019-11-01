@@ -12,7 +12,7 @@
   </thead>
   <tbody>
 <%= for st <- @sheets do %>
-    <%= render TimesheetWeb.SheetView, "sheet_row.html", Map.put(assigns, :sheet, sheet) %>
+    <%= render TimesheetWeb.SheetView, "sheet_row.html", Map.put(assigns, :sheet, st) %>
 <% end %>
   </tbody>
 </table>
