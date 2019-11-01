@@ -18,6 +18,7 @@ defmodule TimesheetWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/sheet/approve", SheetController, :approve
     resources "/users", UserController
     resources "/sessions", SessionController, 
       only: [:new, :create, :delete], singleton: true
