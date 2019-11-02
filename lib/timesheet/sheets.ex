@@ -32,7 +32,7 @@ defmodule Timesheet.Sheets do
   def list_sheets_manager(id) do
     workers = Timesheet.Users.get_workers_id(id)
     query = from(s in Sheet, 
-      where: s.workers_id in workers
+      where: s.workers_id in workers,
       preload: [:worker]
       )
     Repo.all(query)
