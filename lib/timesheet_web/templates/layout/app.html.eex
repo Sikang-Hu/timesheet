@@ -14,7 +14,7 @@
     <div class="container">
       <nav class="navbar navbar-expand-sm navbar-light bg-danger">
         <div class="col-8 text-light">
-          <a class="navbar-brand" href="#">Timesheet</a>
+          <a class="navbar-brand text-light" href="#">Timesheet</a>
         </div>
         <div class="col-4 text-light">
           <%= if @current_user do %>
