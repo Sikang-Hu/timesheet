@@ -13,10 +13,10 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-sm navbar-light bg-primary">
-        <div class="col-8">
+        <div class="col-8 text-light">
           <a class="navbar-brand" href="#">Timesheet</a>
         </div>
-        <div class="col-4">
+        <div class="col-4 text-light">
           <%= if @current_user do %>
             User: <%= @current_user.name %>
             (<%= link("Logout", to: Routes.session_path(@conn, :delete),
