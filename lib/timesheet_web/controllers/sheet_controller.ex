@@ -94,6 +94,12 @@ defmodule TimesheetWeb.SheetController do
       |> Enum.zip(ns)
       |> Enum.each(fn {{jid, h}, n} -> 
         if h > 0 do
+          n = 
+          if n == "" do
+            "N/A"
+          else
+            n
+          end
           Timesheet.Tasks.create_task(%{
               spend_hours: h,
               note: (if n == '', do: "N/A", else: n),
