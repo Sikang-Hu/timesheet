@@ -17,7 +17,7 @@ defmodule TimesheetWeb.SheetController do
 
   def new(conn, _params) do
     changeset = Sheets.change_sheet(%Sheet{})
-    jobcodes = Timesheets.Jobs.list_jobcodes()
+    jobcodes = Timesheet.Jobs.list_jobcodes()
     render(conn, "new.html", changeset: changeset, jobcodes: jobcodes)
   end
 
@@ -79,12 +79,12 @@ defmodule TimesheetWeb.SheetController do
   defp create_help(conn, sheet, hrs, js, ns) do
     tasks =
       Enum.map(js, 
-        fn jc -> Timesheets.Jobs.get_job_id_by_jobcode(jc) end)
+        fn jc -> Timesheet.Jobs.get_job_id_by_jobcode(jc) end)
       |> Enum.zip(hrs)
       |> Enum.zip(ns)
       |> Enum.each(fn {{jid, h}, n} -> 
         if h > 0 do
-          Timesheets.Tasks.create_task(%{
+          Timesheet.Tasks.create_task(%{
               spend_hours: h,
               note: n,
               job_id: jid,
