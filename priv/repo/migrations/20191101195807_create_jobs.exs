@@ -6,7 +6,7 @@ defmodule Timesheet.Repo.Migrations.CreateJobs do
       add :job_code, :string
       add :budget, :integer
       add :name, :string
-      add :description, :text
+      add :description, :text, default: "N/A"
 
       timestamps()
     end

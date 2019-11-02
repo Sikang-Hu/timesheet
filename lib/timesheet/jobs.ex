@@ -37,6 +37,15 @@ defmodule Timesheet.Jobs do
   """
   def get_job!(id), do: Repo.get!(Job, id)
 
+  def get_job_id_by_jobcode(jobcode) do
+    Repo.get_by(Job, jobcode: jobcode).id
+  end
+
+  def list_jobcodes do
+    query = from(j in Job, select: j.jobcode)
+    Repo.all(query)
+  end
+
   @doc """
   Creates a job.
 

@@ -17,19 +17,84 @@ defmodule TimesheetWeb.SheetController do
 
   def new(conn, _params) do
     changeset = Sheets.change_sheet(%Sheet{})
-    render(conn, "new.html", changeset: changeset)
+    jobcodes = Timesheets.Jobs.list_jobcodes()
+    render(conn, "new.html", changeset: changeset, jobcodes: jobcodes)
   end
 
-  def create(conn, %{"sheet" => sheet_params}) do
-    case Sheets.create_sheet(sheet_params) do
-      {:ok, sheet} ->
-        conn
-        |> put_flash(:info, "Sheet created successfully.")
-        |> redirect(to: Routes.sheet_path(conn, :show, sheet))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+  def create(conn, %{
+    "date" => date, 
+    "hours1" => h1,
+    "hours2" => h2,
+    "hours3" => h3,
+    "hours4" => h4,
+    "hours5" => h5,
+    "hours6" => h6,
+    "hours7" => h7,
+    "hours8" => h8,
+    "jobcode1" => j1,
+    "jobcode2" => j2,
+    "jobcode3" => j3,
+    "jobcode4" => j4,
+    "jobcode5" => j5,
+    "jobcode6" => j6,
+    "jobcode7" => j7,
+    "jobcode8" => j8,
+    "desc1" => d1,
+    "desc2" => d2,
+    "desc3" => d3,
+    "desc4" => d4,
+    "desc5" => d5,
+    "desc6" => d6,
+    "desc7" => d7,
+    "desc8" => d8,
+        }) do
+    hours = [h1, h2, h3, h4, h5, h6, h7, h8]
+    jobcodes = [j1, j2, j3, j4, j5, j6, j7, j8]
+    descs = [d1, d2, d3, d4, d5, d6, d7, d8]
+    h = hours |> Enum.reduce(0, fn h, acc ->  
+      case Integer.parse(h, 10) do
+        :error ->
+          acc
+        {i, _} -> if i > 0, do: acc + i, else: acc
+      end
+    end)
+    if h == 8 do
+      current_user = conn.assigns[:current_user]
+      case Sheets.create_sheet(%{
+          worker_id: current_user.id,
+          date: date,
+        }) do
+        {:ok, sheet} -> create_help(conn, sheet, hours, jobcodes, descs)
+        {:error, changeset} -> 
+          render(conn, "new.html", changeset: changeset)
+      end
+    else
+      conn
+      |> put_flash(:info, "Total hours of tasks should be 8!")
+      |> redirect(to: Routes.sheet_path(conn, :new))
     end
+  end
+
+
+  defp create_help(conn, sheet, hrs, js, ns) do
+    tasks =
+      Enum.map(js, 
+        fn jc -> Timesheets.Jobs.get_job_id_by_jobcode(jc) end)
+      |> Enum.zip(hrs)
+      |> Enum.zip(ns)
+      |> Enum.each(fn {{jid, h}, n} -> 
+        if h > 0 do
+          Timesheets.Tasks.create_task(%{
+              spend_hours: h,
+              note: n,
+              job_id: jid,
+              sheet_id: sheet.id
+            })
+        end
+       end)
+    conn
+    |> put_flash(:info, "Sheet created successfully.")
+    |> redirect(to: Routes.sheet_path(conn, :show, sheet))
   end
 
   def show(conn, %{"id" => id}) do
@@ -37,25 +102,6 @@ defmodule TimesheetWeb.SheetController do
     render(conn, "show.html", sheet: sheet)
   end
 
-  def edit(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
-    changeset = Sheets.change_sheet(sheet)
-    render(conn, "edit.html", sheet: sheet, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "sheet" => sheet_params}) do
-    sheet = Sheets.get_sheet!(id)
-
-    case Sheets.update_sheet(sheet, sheet_params) do
-      {:ok, sheet} ->
-        conn
-        |> put_flash(:info, "Sheet updated successfully.")
-        |> redirect(to: Routes.sheet_path(conn, :show, sheet))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", sheet: sheet, changeset: changeset)
-    end
-  end
 
   def approve(conn, %{"id" => id}) do
     user = conn.assigns[:current_user]
@@ -73,14 +119,5 @@ defmodule TimesheetWeb.SheetController do
           |> redirect(to: Routes.sheet_path(conn, :index))
       end
     end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
-    {:ok, _sheet} = Sheets.delete_sheet(sheet)
-
-    conn
-    |> put_flash(:info, "Sheet deleted successfully.")
-    |> redirect(to: Routes.sheet_path(conn, :index))
   end
 end
