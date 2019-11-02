@@ -72,7 +72,7 @@ defmodule TimesheetWeb.SheetController do
           date: date,
         }) do
         {:ok, sheet} -> create_help(conn, sheet, hours, jobcodes, descs)
-        {:error, changeset} -> 
+        {:error, _changeset} -> 
           conn
           |> put_flash(:error, "Only one sheet per day!")
           |> redirect(to: Routes.sheet_path(conn, :new))
@@ -86,6 +86,7 @@ defmodule TimesheetWeb.SheetController do
 
 
   defp create_help(conn, sheet, hrs, js, ns) do
+    IO.inspect(ns)
     tasks =
       Enum.map(js, 
         fn jc -> Timesheet.Jobs.get_job_id_by_jobcode(jc) end)
@@ -99,6 +100,7 @@ defmodule TimesheetWeb.SheetController do
               job_id: jid,
               sheet_id: sheet.id
             })
+          |> IO.inspect
         end
        end)
     conn
