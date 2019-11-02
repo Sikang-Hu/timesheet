@@ -95,7 +95,7 @@ defmodule TimesheetWeb.SheetController do
         if h > 0 do
           Timesheet.Tasks.create_task(%{
               spend_hours: h,
-              note: n,
+              note: if n == '', do: "N/A"
               job_id: jid,
               sheet_id: sheet.id
             })
