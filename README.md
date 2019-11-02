@@ -36,5 +36,11 @@ There are four entities in the database: users, sheets, tasks, jobs.
 For this prototype, there is no way to sign up as a new user, I just provided five users in the database: 2 managers and 3 workers. The user need to login first. If he login as a manager, he will be redirect to an index page containing all the timesheets from the user he supervises. And he can view the detail of each timesheets by click show or approve a timesheet. If he login as a worker, he can see all his timesheets, and create a new timesheets.
 
 To create a new timesheets, the worker need to specifiy tasks by selecting the job code, inputting how many hours spent and a note about the task. Tasks with negative hours will be ignore, while tasks with empty note will be filled with a default note.
+- Worker1: w1@timesheet.com, supervised by Manager1
+- Worker2: w2@timesheet.com, supervised by Manager2
+- Worker3: w3@timesheet.com, supervised by Manager2
+- Manager1: m1@timesheet.com
+- Manager2: m2@timesheet.com
+Password are all: password1234
 
 
