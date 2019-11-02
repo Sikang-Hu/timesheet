@@ -32,7 +32,7 @@
         <tr>
           <td><%= t.job.job_code %></td>
           <td><%= t.spend_hours %></td>
-          <td><%= task.note %></td>
+          <td><%= t.note %></td>
         </tr>
     <% end %>
   </tbody>
