@@ -5,8 +5,14 @@ defmodule TimesheetWeb.SheetController do
   alias Timesheet.Sheets.Sheet
 
   def index(conn, _params) do
-    sheets = Sheets.list_sheets()
-    render(conn, "index.html", sheets: sheets)
+    user = conn.assigns[:current_user]
+    if user.manager_id do
+      sheets = Sheets.list_sheets_worker(user.id)
+      render(conn, "index.html", sheets: sheets)
+    else
+      sheets = Sheets.list_sheets_manager(user.id)
+      render(conn, "index.html", sheets: sheets)
+    end
   end
 
   def new(conn, _params) do
