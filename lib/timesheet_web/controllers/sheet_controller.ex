@@ -74,12 +74,12 @@ defmodule TimesheetWeb.SheetController do
         {:ok, sheet} -> create_help(conn, sheet, hours, jobcodes, descs)
         {:error, changeset} -> 
           conn
-          |> put_flash(:info, "Only one sheet per day!")
+          |> put_flash(:error, "Only one sheet per day!")
           |> redirect(to: Routes.sheet_path(conn, :new))
       end
     else
       conn
-      |> put_flash(:info, "Total hours of tasks should be 8!")
+      |> put_flash(:error, "Total hours of tasks should be 8!")
       |> redirect(to: Routes.sheet_path(conn, :new))
     end
   end

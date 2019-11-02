@@ -30,9 +30,9 @@
   <tbody>
     <%= for t <- @tasks do %>
         <tr>
-          <td><%= @t.job.job_code %></td>
-          <td><%= @t.spend_hours %></td>
-          <td><%= @task.note %></td>
+          <td><%= t.job.job_code %></td>
+          <td><%= t.spend_hours %></td>
+          <td><%= task.note %></td>
         </tr>
     <% end %>
   </tbody>
