@@ -99,7 +99,6 @@ defmodule TimesheetWeb.SheetController do
               job_id: jid,
               sheet_id: sheet.id
             })
-          |> IO.inspect
         end
        end)
     conn

@@ -19,11 +19,10 @@ defmodule TimesheetWeb.Router do
 
     get "/", PageController, :index
     post "/sheet/approve", SheetController, :approve
-    resources "/users", UserController
     resources "/sessions", SessionController, 
       only: [:new, :create, :delete], singleton: true
-    resources "/sheets", SheetController
-    resources "/tasks", TaskController
+    resources "/sheets", SheetController,
+      only: [:new, :show, :index, :create]
     
   end
 
