@@ -54,6 +54,14 @@ defmodule Timesheet.Sheets do
   """
   def get_sheet!(id), do: Repo.get!(Sheet, id)
 
+  def get_sheet(id) do
+    query = from(s in Sheet, 
+      where: s.id == ^id,
+      preload: [:worker]
+      )
+    Repo.one(query)
+  end
+
   @doc """
   Creates a sheet.
 

@@ -5,10 +5,12 @@
 
   <td>
     <span><%= link "Show", to: Routes.sheet_path(@conn, :show, @sheet) %></span>
+  </td>
+  <td>
     <%= if !(@current_user.manager_id || @sheet.approve) do %>
-  <span>
-    <%= button("Approve", to: Routes.sheet_path(@conn, :approve, %{id: @sheet.id}), class: "btn btn-primary") %>
-    </span>
-<% end %>
+      <span>
+        <%= button("Approve", to: Routes.sheet_path(@conn, :approve, %{id: @sheet.id}), class: "btn btn-primary") %>
+      </span>
+    <% end %>
   </td>
 </tr>

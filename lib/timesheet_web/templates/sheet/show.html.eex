@@ -14,10 +14,33 @@
 
   <li>
     <strong>Worker:</strong>
-    <%= @sheet.worker_id %>
+    <%= @sheet.worker.name %>
   </li>
 
 </ul>
 
-<span><%= link "Edit", to: Routes.sheet_path(@conn, :edit, @sheet) %></span>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Job Code</th>
+      <th>Spendd Hours</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for t <- @tasks do %>
+        <tr>
+          <td><%= @t.job.job_code %></td>
+          <td><%= @t.spend_hours %></td>
+          <td><%= @task.note %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= if !(@current_user.manager_id || @sheet.approve) do %>
+  <span>
+    <%= button("Approve", to: Routes.sheet_path(@conn, :approve, %{id: @sheet.id}), class: "btn btn-primary") %>
+    </span>
+<% end %>
 <span><%= link "Back", to: Routes.sheet_path(@conn, :index) %></span>
