@@ -107,7 +107,7 @@ defmodule TimesheetWeb.SheetController do
   def show(conn, %{"id" => id}) do
     sheet = Sheets.get_sheet(id)
     tasks = Timesheet.Tasks.get_tasks_by_sheet_id(id)
-    render(conn, "show.html", sheet: sheet)
+    render(conn, "show.html", sheet: sheet, tasks: tasks)
   end
 
 
