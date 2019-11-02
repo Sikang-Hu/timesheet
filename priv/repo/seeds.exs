@@ -11,7 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 alias Timesheet.Repo
 alias Timesheet.Users.User
-alias Timesheets.Jobs.Job
+alias Timesheet.Jobs.Job
 
 pw1 = Argon2.hash_pwd_salt("password1234")
 
