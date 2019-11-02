@@ -21,7 +21,7 @@ defmodule TimesheetWeb.SheetController do
     render(conn, "new.html", changeset: changeset, jobcodes: jobcodes)
   end
 
-  def create(conn, %{
+  def create(conn, %{"sheet" => %{
     "date" => date, 
     "hours1" => h1,
     "hours2" => h2,
@@ -47,7 +47,7 @@ defmodule TimesheetWeb.SheetController do
     "desc6" => d6,
     "desc7" => d7,
     "desc8" => d8,
-        }) do
+        }}) do
     hours = [h1, h2, h3, h4, h5, h6, h7, h8]
     jobcodes = [j1, j2, j3, j4, j5, j6, j7, j8]
     descs = [d1, d2, d3, d4, d5, d6, d7, d8]
