@@ -86,7 +86,6 @@ defmodule TimesheetWeb.SheetController do
 
 
   defp create_help(conn, sheet, hrs, js, ns) do
-    IO.inspect(ns)
     tasks =
       Enum.map(js, 
         fn jc -> Timesheet.Jobs.get_job_id_by_jobcode(jc) end)
@@ -102,11 +101,10 @@ defmodule TimesheetWeb.SheetController do
           end
           Timesheet.Tasks.create_task(%{
               spend_hours: h,
-              note: (if n == '', do: "N/A", else: n),
+              note: n,
               job_id: jid,
               sheet_id: sheet.id
             })
-          |> IO.inspect
         end
        end)
     conn
