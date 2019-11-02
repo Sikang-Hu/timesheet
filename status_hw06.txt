@@ -13,7 +13,7 @@ https://github.com/Sikang-Hu/timesheet/tree/simple
 
 
 3. What's the version number of your github release?
-0.1.0
+commit d55376345c189360657aaa613b24a45fa5563a40
 
 
 4. What's the URL that you deployed to?
