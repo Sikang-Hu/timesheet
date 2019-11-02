@@ -38,11 +38,11 @@ defmodule Timesheet.Jobs do
   def get_job!(id), do: Repo.get!(Job, id)
 
   def get_job_id_by_jobcode(jobcode) do
-    Repo.get_by(Job, jobcode: jobcode).id
+    Repo.get_by(Job, job_code: jobcode).id
   end
 
   def list_jobcodes do
-    query = from(j in Job, select: j.jobcode)
+    query = from(j in Job, select: j.job_code)
     Repo.all(query)
   end
 
