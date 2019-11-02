@@ -16,9 +16,16 @@ defmodule TimesheetWeb.SheetController do
   end
 
   def new(conn, _params) do
-    changeset = Sheets.change_sheet(%Sheet{})
-    jobcodes = Timesheet.Jobs.list_jobcodes()
-    render(conn, "new.html", changeset: changeset, jobcodes: jobcodes)
+    user = conn.assigns[:current_user]
+    if user.manager_id do
+      changeset = Sheets.change_sheet(%Sheet{})
+      jobcodes = Timesheet.Jobs.list_jobcodes()
+      render(conn, "new.html", changeset: changeset, jobcodes: jobcodes)
+    else
+      conn
+      |> put_flash(:info, "Approved successfully.")
+      |> redirect(to: Routes.sheet_path(conn, :index))
+    end
   end
 
   def create(conn, %{"sheet" => %{
@@ -98,7 +105,8 @@ defmodule TimesheetWeb.SheetController do
   end
 
   def show(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
+    sheet = Sheets.get_sheet(id)
+    tasks = Timesheet.Tasks.get_tasks_by_sheet_id(id)
     render(conn, "show.html", sheet: sheet)
   end
 
