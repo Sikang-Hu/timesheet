@@ -13,18 +13,8 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-sm navbar-light bg-white">
-        <div class="col-4">
+        <div class="col-8">
           <a class="navbar-brand" href="#">Timesheet</a>
-        </div>
-        <div class="col-4">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">All Timesheets</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">You Timesheets</a>
-            </li>
-          </ul>
         </div>
         <div class="col-4">
           <%= if @current_user do %>
