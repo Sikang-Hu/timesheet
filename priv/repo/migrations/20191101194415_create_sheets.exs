@@ -5,7 +5,7 @@ defmodule Timesheet.Repo.Migrations.CreateSheets do
     create table(:sheets) do
       add :date, :date
       add :approve, :boolean, default: false, null: false
-      add :worker_id, :integer, references(:users, on_delete: :nothing)
+      add :worker_id, references(:users), null: false
 
       timestamps()
     end
